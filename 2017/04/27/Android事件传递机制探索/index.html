@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://www.wanwenxiu.com">
   <title>Android事件传递机制探索 | Wan Wenxiu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。反复几次恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。那就开始吧！    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的O">
+  <meta name="description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta name="keywords" content="Android,dispatchTouchEvent,onTouchEvent,onInterceptTouch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android事件传递机制探索">
 <meta property="og:url" content="http://www.wanwenxiu.com/2017/04/27/Android事件传递机制探索/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
-<meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。反复几次恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。那就开始吧！    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的O">
+<meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta property="og:image" content="http://120.24.77.39:8080/record2017/android_event.png">
-<meta property="og:updated_time" content="2017-04-27T07:49:20.904Z">
+<meta property="og:updated_time" content="2017-04-27T08:21:53.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android事件传递机制探索">
-<meta name="twitter:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。反复几次恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。那就开始吧！    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的O">
+<meta name="twitter:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta name="twitter:image" content="http://120.24.77.39:8080/record2017/android_event.png">
   
     <link rel="alternative" href="/atom.xml" title="Wan Wenxiu" type="application/atom+xml">
@@ -162,10 +162,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>   总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。反复几次恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。那就开始吧！</p>
+        <p>   总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？</p>
 <p>   在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的OnItemClickListener点击事件与Button的touch（或者click）事件冲突的问题。当然你肯定不会被难住。随手在度娘上一搜索，解决方法就出来了。但是你并没有深究为什么？都会用但是却不理解</p>
    <a id="more"></a>
 <p>   来个草图。。。好寒酸好简陋<br>   <img src="http://120.24.77.39:8080/record2017/android_event.png" alt=""></p>
+<h1 id="Android两大基础控件"><a href="#Android两大基础控件" class="headerlink" title="Android两大基础控件"></a>Android两大基础控件</h1><p>   主要分为：View和ViewGroup</p>
+<p>   View:没有子控件的普通控件，例如 Textview、Button、ImageView…</p>
+<p>   ViewGroup：可以存放子控件的控件，继承View。例如：ListView、Linearlayout…</p>
+<h1 id="Android事件——MontionEvent"><a href="#Android事件——MontionEvent" class="headerlink" title="Android事件——MontionEvent"></a>Android事件——MontionEvent</h1><p>  常见的动作常量：</p>
+<pre><code>public static final int ACTION_DOWN             = 0;单点触摸动作
+public static final int ACTION_UP               = 1;单点触摸离开动作
+public static final int ACTION_MOVE             = 2;触摸点移动动作
+public static final int ACTION_CANCEL           = 3;触摸动作取消
+public static final int ACTION_OUTSIDE          = 4;触摸动作超出边界
+public static final int ACTION_POINTER_DOWN     = 5;多点触摸动作
+public static final int ACTION_POINTER_UP       = 6;多点离开动作
+</code></pre><p>  以下是一些非touch事件</p>
+<pre><code>public static final int ACTION_HOVER_MOVE       = 7;
+public static final int ACTION_SCROLL           = 8;
+public static final int ACTION_HOVER_ENTER      = 9;
+public static final int ACTION_HOVER_EXIT       = 10;
+</code></pre><p>  平时使用最多的无非就是三种：ACTION_DOWN 按下 、ACTION_MOVE 拖动、ACTION_UP 抬起</p>
 
       
 
@@ -374,10 +391,6 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
@@ -407,6 +420,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
             
             <div class="clearfix"></div>
