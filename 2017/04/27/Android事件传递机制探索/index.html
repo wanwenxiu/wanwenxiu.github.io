@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta property="og:image" content="http://120.24.77.39:8080/record2017/android_event.png">
-<meta property="og:updated_time" content="2017-04-27T08:21:53.632Z">
+<meta property="og:updated_time" content="2017-04-27T12:36:23.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android事件传递机制探索">
 <meta name="twitter:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
@@ -183,6 +183,21 @@ public static final int ACTION_SCROLL           = 8;
 public static final int ACTION_HOVER_ENTER      = 9;
 public static final int ACTION_HOVER_EXIT       = 10;
 </code></pre><p>  平时使用最多的无非就是三种：ACTION_DOWN 按下 、ACTION_MOVE 拖动、ACTION_UP 抬起</p>
+<p>  所有的控件无非就是两个最基础的事件OnClick OnTouch，当然还有其他的事件如长按、单击、双击等，在这里是说最基本的事件。所有事件都是为了触发这两个事件。</p>
+<h1 id="Android事件传递函数"><a href="#Android事件传递函数" class="headerlink" title="Android事件传递函数"></a>Android事件传递函数</h1><h2 id="一：View控件事件传递"><a href="#一：View控件事件传递" class="headerlink" title="一：View控件事件传递"></a>一：View控件事件传递</h2><p>   主要分为两个方法：<font color="red">dispatchTouchEvent</font> 和 <font color="red">onTouchEvent</font> 。</p>
+<pre><code>@Override
+public boolean dispatchTouchEvent(MotionEvent ev) {
+    return super.dispatchTouchEvent(ev);
+}
+
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+    return super.onTouchEvent(event);
+}
+</code></pre><p>   前者作用为分发，是事件传递入口！ 后者作用执行。可以看到两个方法都是返回Boolean类型。默认返回false。先简单的总结一下，后续再用demo演示</p>
+<p>   1.当有事件传递进来时，先执行dispatchTouchEvent方法，然后执行注册onTouch监听。接着执行onTouchEvent方法，在onTouchEvent中执行Onclick方法。</p>
+<p>   2.无论是dispatchTouchEvent方法还是onTouchEvent方法，只要有一个返回了true。则不继续向下分发执行。如果返回false，则代表继续像下执行。例如：如果dispatchTouchEvent在执行OnTouch事件时返回了True,那么就不再分发给onTouchEvent事件，onTouchEvent方法就不会再执行，当然Onclick事件就更不会执行了。</p>
+<p>   如果你没有看懂，我们可以写一个小程序看打印日志，就可以看到执行顺序了。</p>
 
       
 
@@ -407,10 +422,6 @@ public static final int ACTION_HOVER_EXIT       = 10;
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">评论</a>
               </li>
              
@@ -424,6 +435,10 @@ public static final int ACTION_HOVER_EXIT       = 10;
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
             
             <div class="clearfix"></div>
