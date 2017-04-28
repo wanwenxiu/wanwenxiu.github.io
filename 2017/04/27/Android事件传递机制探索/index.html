@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta property="og:image" content="http://120.24.77.39:8080/record2017/android_event.png">
-<meta property="og:updated_time" content="2017-04-27T12:36:23.336Z">
+<meta property="og:updated_time" content="2017-04-28T03:53:26.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android事件传递机制探索">
 <meta name="twitter:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
@@ -198,6 +198,66 @@ public boolean onTouchEvent(MotionEvent event) {
 <p>   1.当有事件传递进来时，先执行dispatchTouchEvent方法，然后执行注册onTouch监听。接着执行onTouchEvent方法，在onTouchEvent中执行Onclick方法。</p>
 <p>   2.无论是dispatchTouchEvent方法还是onTouchEvent方法，只要有一个返回了true。则不继续向下分发执行。如果返回false，则代表继续像下执行。例如：如果dispatchTouchEvent在执行OnTouch事件时返回了True,那么就不再分发给onTouchEvent事件，onTouchEvent方法就不会再执行，当然Onclick事件就更不会执行了。</p>
 <p>   如果你没有看懂，我们可以写一个小程序看打印日志，就可以看到执行顺序了。</p>
+<pre><code> /**
+ * 作者：wwx on 2017/4/27 0027 11:23
+ * 邮箱：wanwenxiu0709@foxmail.com
+ * 描述：探索Android事件传递机制
+ */
+public class TouchEventAvtivityActivity extends Activity{
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.touchevent_main_activity);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: Activity  ACTION_DOWN&quot;);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: Activity  ACTION_MOVE&quot;);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: Activity  ACTION_UP&quot;);
+                break;
+            default:
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: Activity ACTION_DOWN&quot;);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: Activity ACTION_MOVE&quot;);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: Activity ACTION_UP&quot;);
+                break;
+            default:
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+}
+</code></pre><p>  新建Activity,复写 dispatchTouchEvent 和 onTouchEvent 方法。运行程序之后，点击屏幕。查看日志</p>
+<pre><code>04-28 11:17:02.728 6961-6961/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
+04-28 11:17:02.738 6961-6961/wwx.toucheventdemo D/geek: onTouchEvent: Activity ACTION_DOWN
+04-28 11:17:02.888 6961-6961/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_MOVE
+04-28 11:17:02.888 6961-6961/wwx.toucheventdemo D/geek: onTouchEvent: Activity ACTION_MOVE
+04-28 11:17:02.928 6961-6961/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
+04-28 11:17:02.928 6961-6961/wwx.toucheventdemo D/geek: onTouchEvent: Activity ACTION_UP
+</code></pre><p>  可以看运行顺序，dispatchTouchEvent 比 onTouchEvent 先执行，因为我没有改dispatchTouchEvent返回值，返回false，所以onTouchEvent执行了。现在我改dispatchTouchEvent返回值为true，将上文中 <code>return super.dispatchTouchEvent(ev);</code> 改为 <code>return true</code> ，看看运行效果。</p>
+<pre><code>04-28 11:34:17.218 7181-7181/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
+04-28 11:34:17.258 7181-7181/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
+</code></pre><p> 可以看到由于dispatchTouchEvent return true，即已经自己消费了，就不会分发onTouchEvent方法。</p>
 
       
 
@@ -406,22 +466,6 @@ public boolean onTouchEvent(MotionEvent event) {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">评论</a>
               </li>
              
@@ -435,6 +479,22 @@ public boolean onTouchEvent(MotionEvent event) {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
               </li>
              
               <li class="article-tag-list-item">
