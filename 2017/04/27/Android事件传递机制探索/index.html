@@ -15,12 +15,12 @@
 <meta property="og:url" content="http://www.wanwenxiu.com/2017/04/27/Android事件传递机制探索/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
-<meta property="og:image" content="http://120.24.77.39:8080/record2017/android_event.png">
-<meta property="og:updated_time" content="2017-04-28T03:53:26.988Z">
+<meta property="og:image" content="http://www.wanwenxiu.com/record2017/android_event.png">
+<meta property="og:updated_time" content="2017-04-28T03:56:06.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android事件传递机制探索">
 <meta name="twitter:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
-<meta name="twitter:image" content="http://120.24.77.39:8080/record2017/android_event.png">
+<meta name="twitter:image" content="http://www.wanwenxiu.com/record2017/android_event.png">
   
     <link rel="alternative" href="/atom.xml" title="Wan Wenxiu" type="application/atom+xml">
   
@@ -165,7 +165,7 @@
         <p>   总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？</p>
 <p>   在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的OnItemClickListener点击事件与Button的touch（或者click）事件冲突的问题。当然你肯定不会被难住。随手在度娘上一搜索，解决方法就出来了。但是你并没有深究为什么？都会用但是却不理解</p>
    <a id="more"></a>
-<p>   来个草图。。。好寒酸好简陋<br>   <img src="http://120.24.77.39:8080/record2017/android_event.png" alt=""></p>
+<p>   来个草图。。。好寒酸好简陋<br>   <img src="http://www.wanwenxiu.com/record2017/android_event.png" alt=""></p>
 <h1 id="Android两大基础控件"><a href="#Android两大基础控件" class="headerlink" title="Android两大基础控件"></a>Android两大基础控件</h1><p>   主要分为：View和ViewGroup</p>
 <p>   View:没有子控件的普通控件，例如 Textview、Button、ImageView…</p>
 <p>   ViewGroup：可以存放子控件的控件，继承View。例如：ListView、Linearlayout…</p>
@@ -466,22 +466,6 @@ public class TouchEventAvtivityActivity extends Activity{
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">评论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多说</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
@@ -495,6 +479,22 @@ public class TouchEventAvtivityActivity extends Activity{
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">评论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多说</a>
               </li>
              
               <li class="article-tag-list-item">
