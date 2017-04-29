@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta property="og:image" content="http://www.wanwenxiu.com/record2017/android_event.png">
-<meta property="og:updated_time" content="2017-04-28T03:56:06.156Z">
+<meta property="og:updated_time" content="2017-04-29T02:49:54.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android事件传递机制探索">
 <meta name="twitter:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
@@ -184,7 +184,7 @@ public static final int ACTION_HOVER_ENTER      = 9;
 public static final int ACTION_HOVER_EXIT       = 10;
 </code></pre><p>  平时使用最多的无非就是三种：ACTION_DOWN 按下 、ACTION_MOVE 拖动、ACTION_UP 抬起</p>
 <p>  所有的控件无非就是两个最基础的事件OnClick OnTouch，当然还有其他的事件如长按、单击、双击等，在这里是说最基本的事件。所有事件都是为了触发这两个事件。</p>
-<h1 id="Android事件传递函数"><a href="#Android事件传递函数" class="headerlink" title="Android事件传递函数"></a>Android事件传递函数</h1><h2 id="一：View控件事件传递"><a href="#一：View控件事件传递" class="headerlink" title="一：View控件事件传递"></a>一：View控件事件传递</h2><p>   主要分为两个方法：<font color="red">dispatchTouchEvent</font> 和 <font color="red">onTouchEvent</font> 。</p>
+<h1 id="Android事件传递函数"><a href="#Android事件传递函数" class="headerlink" title="Android事件传递函数"></a>Android事件传递函数</h1><h2 id="一：View控件事件传递"><a href="#一：View控件事件传递" class="headerlink" title="一：View控件事件传递"></a>一：View控件事件传递</h2><p>   主要分为两个方法：<strong>dispatchTouchEvent</strong> 和 <strong>onTouchEvent</strong> 。</p>
 <pre><code>@Override
 public boolean dispatchTouchEvent(MotionEvent ev) {
     return super.dispatchTouchEvent(ev);
@@ -195,8 +195,9 @@ public boolean onTouchEvent(MotionEvent event) {
     return super.onTouchEvent(event);
 }
 </code></pre><p>   前者作用为分发，是事件传递入口！ 后者作用执行。可以看到两个方法都是返回Boolean类型。默认返回false。先简单的总结一下，后续再用demo演示</p>
-<p>   1.当有事件传递进来时，先执行dispatchTouchEvent方法，然后执行注册onTouch监听。接着执行onTouchEvent方法，在onTouchEvent中执行Onclick方法。</p>
-<p>   2.无论是dispatchTouchEvent方法还是onTouchEvent方法，只要有一个返回了true。则不继续向下分发执行。如果返回false，则代表继续像下执行。例如：如果dispatchTouchEvent在执行OnTouch事件时返回了True,那么就不再分发给onTouchEvent事件，onTouchEvent方法就不会再执行，当然Onclick事件就更不会执行了。</p>
+  <font color="red"> 1.当有事件传递进来时，先执行dispatchTouchEvent方法，然后执行注册onTouch监听。接着执行onTouchEvent方法，在onTouchEvent中执行Onclick方法</font>。<br><br>   <font color="red">2.无论是dispatchTouchEvent方法还是onTouchEvent方法，只要有一个返回了true。则不继续向下分发执行。如果返回false，则代表继续像下执行。例如：如果dispatchTouchEvent在执行OnTouch事件时返回了True,那么就不再分发给onTouchEvent事件，onTouchEvent方法就不会再执行，当然Onclick事件就更不会执行了。</font>
+
+<hr>
 <p>   如果你没有看懂，我们可以写一个小程序看打印日志，就可以看到执行顺序了。</p>
 <pre><code> /**
  * 作者：wwx on 2017/4/27 0027 11:23
@@ -258,7 +259,124 @@ public class TouchEventAvtivityActivity extends Activity{
 <pre><code>04-28 11:34:17.218 7181-7181/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
 04-28 11:34:17.258 7181-7181/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
 </code></pre><p> 可以看到由于dispatchTouchEvent return true，即已经自己消费了，就不会分发onTouchEvent方法。</p>
+<hr>
+<p> 上图是直接在Activity中测试的，现在我们写个自定义View-TouchEventTextView，复写TouchEventTextView的dispatchTouchEvent 方法和 onTouchEvent方法，最后再Activty中设置TouchEventTextView的点击时间和触摸事件。做进一步观察。测试代码如下：</p>
+<pre><code>/**
+ * 作者：wwx on 2017/4/28 17:33
+ * 邮箱：wanwenxiu0709@foxmail.com
+ * 描述：自定义TextView 实现dispatchTouchEvent和dispatchTouchEvent方法
+ */
+@SuppressLint(&quot;AppCompatCustomView&quot;)
+public class TouchEventTextView extends TextView{
 
+    public TouchEventTextView(Context context) {
+        super(context);
+    }
+
+    public TouchEventTextView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public TouchEventTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    public TouchEventTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: TouchEventTextView ACTION_DOWN&quot;);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: TouchEventTextView ACTION_MOVE&quot;);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: TouchEventTextView ACTION_UP&quot;);
+                break;
+            default:
+
+                break;
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: TouchEventTextView ACTION_DOWN&quot;);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: TouchEventTextView ACTION_MOVE&quot;);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: TouchEventTextView ACTION_UP&quot;);
+                break;
+            default:
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+}
+</code></pre><p>在上文中的Activity中，实现TouchEventTextView的Onclick和OnTouch事件   </p>
+<pre><code>TouchEventTextView tv = (TouchEventTextView) findViewById(R.id.tv);
+   tv.setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
+           Log.d(&quot;geek&quot;, &quot;onClick点击事件: TouchEventTextView&quot;);
+       }
+   });
+
+   tv.setOnTouchListener(new View.OnTouchListener() {
+       @Override
+       public boolean onTouch(View v, MotionEvent event) {
+           Log.d(&quot;geek&quot;, &quot;onTouch点击事件:   TouchEventTextView +&quot;+event.getAction());
+           return false;
+       }
+   });
+</code></pre><p> 运行之后，点击Textview按钮，可以看到运行日志为:</p>
+<pre><code>04-29 10:20:53.266 12732-12732/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
+04-29 10:20:53.266 12732-12732/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_DOWN
+04-29 10:20:53.266 12732-12732/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +0
+04-29 10:20:53.266 12732-12732/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_DOWN
+04-29 10:20:53.336 12732-12732/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
+04-29 10:20:53.336 12732-12732/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_UP
+04-29 10:20:53.336 12732-12732/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +1
+04-29 10:20:53.336 12732-12732/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_UP
+04-29 10:20:53.336 12732-12732/wwx.toucheventdemo D/geek: onClick点击事件: TouchEventTextView
+</code></pre><p>可以看到：</p>
+<p>1.按下手指时，由于Activity的dispatchTouchEvent事件 <code>return false</code>，所以继续分发给TouchEventTextView的dispatchTouchEvent事件，并进入TouchEventTextView的OnTouch方法，当然可以看到打印的事件是0–ACTION_DOWN–按下操作。然后TouchEventTextView继续执行onTouchEvent事件。</p>
+<p>2.手指抬起时,也一样套路，不过多了一步，最后执行TouchEventTextView的Onclick事件。</p>
+<p>3.我们可以看到，dispatchTouchEvent是Activity和TouchEventTextView都执行了，上面我们说了dispatchTouchEvent是事件的入口。而onTouchEvent只有TouchEventTextView执行了。</p>
+<p>4.还可以得到一个结论，<font color="red">在onClick事件和onTouch事件同时设置时，是onTouch事件先执行</font>。</p>
+<hr>
+<p>那如果我点击TouchEventTextView的时候，不想执行TouchEventTextView的任何事件怎么办呢？我们只需要在activity层的dispatchTouchEvent设置     <code>return true</code>即可，这样就不会像下面的控件分发，由Activity自己消费。 见日志：</p>
+<pre><code>04-29 10:38:37.816 7471-7471/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
+04-29 10:38:37.916 7471-7471/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
+</code></pre><p>如果是不想执行TouchEventTextVie的onTouch事件，将TouchEventTextView中的dispatchTouchEvent事件设置 <code>return true</code>,点击效果为：</p>
+<pre><code>04-29 10:41:37.686 9622-9622/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
+04-29 10:41:37.686 9622-9622/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_DOWN
+04-29 10:41:37.776 9622-9622/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
+04-29 10:41:37.776 9622-9622/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_UP
+</code></pre><p>如果是不想执行TouchEventTextVie的onClick事件，将TouchEventTextView中的onTouchEvent事件设置 <code>return true</code>,点击效果为：</p>
+<pre><code>04-29 10:43:21.486 12119-12119/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
+04-29 10:43:21.486 12119-12119/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_DOWN
+04-29 10:43:21.486 12119-12119/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +0
+04-29 10:43:21.486 12119-12119/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_DOWN
+04-29 10:43:21.506 12119-12119/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_MOVE
+04-29 10:43:21.506 12119-12119/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_MOVE
+04-29 10:43:21.506 12119-12119/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +2
+04-29 10:43:21.506 12119-12119/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_MOVE
+04-29 10:43:21.586 12119-12119/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
+04-29 10:43:21.586 12119-12119/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_UP
+04-29 10:43:21.586 12119-12119/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +1
+04-29 10:43:21.586 12119-12119/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_UP
+</code></pre><p>从中也可以得到一个结论：<font color="red">onTouch事件时依附于dispatchTouchEvent事件，onclick事件是依附于onTouchEvent事件</font>。</p>
+<h2 id="二：ViewGroup控件事件传递"><a href="#二：ViewGroup控件事件传递" class="headerlink" title="二：ViewGroup控件事件传递"></a>二：ViewGroup控件事件传递</h2>
       
 
       
@@ -482,6 +600,10 @@ public class TouchEventAvtivityActivity extends Activity{
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">评论</a>
               </li>
              
@@ -495,10 +617,6 @@ public class TouchEventAvtivityActivity extends Activity{
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
             
             <div class="clearfix"></div>
