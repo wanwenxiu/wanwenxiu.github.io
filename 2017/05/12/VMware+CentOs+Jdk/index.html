@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://www.wanwenxiu.com">
   <title>用VM+CentOS搭建java环境 | Wan Wenxiu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置 一 JDK进入Linux系统，打开命令行 。 1.输入 java -version">
+  <meta name="description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
 <meta name="keywords" content="VMware,CentOS,JDK,tomcat,rabbit,redis,elk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用VM+CentOS搭建java环境">
 <meta property="og:url" content="http://www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
-<meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置 一 JDK进入Linux系统，打开命令行 。 1.输入 java -version">
-<meta property="og:updated_time" content="2017-05-12T09:55:05.473Z">
+<meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
+<meta property="og:updated_time" content="2017-05-12T09:57:54.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用VM+CentOS搭建java环境">
-<meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置 一 JDK进入Linux系统，打开命令行 。 1.输入 java -version">
+<meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
   
     <link rel="alternative" href="/atom.xml" title="Wan Wenxiu" type="application/atom+xml">
   
@@ -162,6 +162,7 @@
       
         <p>公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。</p>
 <p>在开始之前，先把我需要用到的软件列出来  <a href="http://sw.bos.baidu.com/sw-search-sp/software/9cc86e00cf794/VMware-workstation-full_12.5.5.17738.exe" target="_blank" rel="external">VMware</a> <a href="https://www.centos.org/download/" target="_blank" rel="external">CentOS</a> <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">JDK</a> <a href="http://tomcat.apache.org/download-80.cgi" target="_blank" rel="external">Tomcat</a>  <a href="http://wiki.rabbitvcs.org/wiki/download" target="_blank" rel="external">Rabbit</a>  <a href="https://redis.io/download" target="_blank" rel="external">Redis</a>  <a href="https://www.elastic.co/cn/products" target="_blank" rel="external">ELK</a><br>，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置</p>
+<a id="more"></a>
 <h2 id="一-JDK"><a href="#一-JDK" class="headerlink" title="一 JDK"></a>一 JDK</h2><p>进入Linux系统，打开命令行 。</p>
 <p>1.输入 <code>java -version</code>  回车，查看系统是否默认安装jdk。</p>
 <p>2.输入 <code>rpm -qa | grep jdk</code>，确定JDK详细版本，可能会显示下面的内容。</p>
@@ -443,6 +444,22 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">评论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
@@ -484,22 +501,6 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">elk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">评论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多说</a>
               </li>
              
               <li class="article-tag-list-item">
