@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.wanwenxiu.com">
-  <title>Wan Wenxiu</title>
+  <title>Tag: tomcat | Wan Wenxiu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Wan Wenxiu">
-<meta property="og:url" content="http://www.wanwenxiu.com/index.html">
+<meta property="og:url" content="http://www.wanwenxiu.com/tags/tomcat/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Wan Wenxiu">
@@ -137,97 +137,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-VMware+CentOs+Jdk" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/05/12/VMware+CentOs+Jdk/" class="archive-article-date">
+  	<time datetime="2017-05-12T02:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-12</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/12/VMware+CentOs+Jdk/">用VM+CentOS搭建java环境</a>
+      <a class="archive-article-title" href="/2017/05/12/VMware+CentOs+Jdk/">用VM+CentOS搭建java环境</a>
     </h1>
   
 
-        
-        <a href="/2017/05/12/VMware+CentOs+Jdk/" class="archive-article-date">
-  	<time datetime="2017-05-12T02:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。</p>
-<p>在开始之前，先把我需要用到的软件列出来  <a href="http://sw.bos.baidu.com/sw-search-sp/software/9cc86e00cf794/VMware-workstation-full_12.5.5.17738.exe" target="_blank" rel="external">VMware</a> <a href="https://www.centos.org/download/" target="_blank" rel="external">CentOS</a> <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">JDK</a> <a href="http://tomcat.apache.org/download-80.cgi" target="_blank" rel="external">Tomcat</a>  <a href="http://wiki.rabbitvcs.org/wiki/download" target="_blank" rel="external">Rabbit</a>  <a href="https://redis.io/download" target="_blank" rel="external">Redis</a>  <a href="https://www.elastic.co/cn/products" target="_blank" rel="external">ELK</a><br>，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置</p>
-<h2 id="一-JDK"><a href="#一-JDK" class="headerlink" title="一 JDK"></a>一 JDK</h2><p>进入Linux系统，打开命令行 。</p>
-<p>1.输入 <code>java -version</code>  回车，查看系统是否默认安装jdk。</p>
-<p>2.输入 <code>rpm -qa | grep jdk</code>，确定JDK详细版本，可能会显示下面的内容。</p>
-<pre><code>libgcj-4.1.2-42.el5
-java-1.4.2-gcj-compat-1.4.2.0-40jpp.115  
-</code></pre><p>3.输入 <code>yum -y remove java-1.4.2-gcj-compat-1.4.2.0-40jpp.115</code> 卸载系统自带jdk</p>
-<p>4.输入 <code>rpm -ivh jdk-8u112-linux-x64.rpm</code>  安装jdk</p>
-<p>5.输入 <code>vim /etc/profile</code> 回车，配置环境变量。配置你自己的jdk安装目录。注意将路径换成你自己的安装路径。如果在命令行不好操作，可以将profile拷贝出来在修改。</p>
-<pre><code>export JAVA_HOME=/usr/java/jdk-1.6.0_22-fcs 
-export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib 
-export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin 
-</code></pre><p>6.输入 <code>source /etc/profile</code> 修改该文件后要想马上生效。不然只能在下次重进此用户时才生效或者重启</p>
-<h2 id="二-Tomcat"><a href="#二-Tomcat" class="headerlink" title="二 Tomcat"></a>二 Tomcat</h2><p>前提：由于我下载的是压缩包格式的，在安装前需要解压</p>
-<p>1.输入<code>tar -zxvf apache-tomcat-8.0.39.tar.gz</code> 可以看到当前目录已经生成一个已经解压的目录</p>
-<p>2.自动解压的目录名字很长，可以选择性修改名字 ，输入 <code>cp -R apache-tomcat-8.0.39  tomcat</code> ，-R 后面是当前文件夹名字 后面是要改的名字。</p>
-<p>3.切换至tomcat的bin目录 ，输入<code>./startup.sh</code> 运行tomcat</p>
-<pre><code>[root@localhost java]# cp -R apache-tomcat-8.0.39 apache8039
-[root@localhost java]# ls
-apache8039  apache-tomcat-8.0.39  data  default  jdk1.8.0_112  latest
-[root@localhost java]# rm -rf apache-tomcat-8.0.39
-[root@localhost java]# ls
-apache8039  data  default  jdk1.8.0_112  latest
-[root@localhost java]# cd apache8039/bin
-[root@localhost bin]# ./startup.sh
-Using CATALINA_BASE:   /usr/java/apache8039
-Using CATALINA_HOME:   /usr/java/apache8039
-Using CATALINA_TMPDIR: /usr/java/apache8039/temp
-Using JRE_HOME:        /usr/java/jdk1.8.0_112
-Using CLASSPATH:       /usr/java/apache8039/bin/bootstrap.jar:/usr/java/apache8039/bin/tomcat-juli.jar
-Tomcat started.
-</code></pre><p>4.启动成功，tomcat默认8080端口 ，访问<a href="http://ip:8080" target="_blank" rel="external">http://ip:8080</a> 查看是否成功,如果不成功，检查端口情况</p>
-<p>输入<code>netstat -ano|grep 8080</code> 可以看到我的8080  已经被暂用，此时你有两种方案，1修改8080端口 2修改tomcat默认端口，我采用第二种</p>
-<pre><code>[root@localhost bin]# netstat -ano|grep 8080
-tcp6       0      0 127.0.0.1:8080          127.0.0.1:54527         TIME_WAIT   timewait (41.96/0/0)
-[root@localhost bin]# netstat -ano|grep 80
-tcp6       0      0 127.0.0.1:55272         127.0.0.1:8005          TIME_WAIT   timewait (22.64/0/0)
-tcp6       0      0 127.0.0.1:8080          127.0.0.1:54527         TIME_WAIT   timewait (22.70/0/0)
-tcp6       0      0 127.0.0.1:8009          127.0.0.1:54780         TIME_WAIT   timewait (22.75/0/0)
-</code></pre><p>5.找到tomcat的server.xml文件 ，修改里面的端口为80 。同样可以用命令行方式，也可以用图形化直接修改文件</p>
-<p>6.再次启动tomcat服务，并访问<a href="http://ip:80。如能够显示Tomcat的主页，则表示不需要进行任何操作了，如不能显示，则需要在Linux中开放防火墙的80端口。" target="_blank" rel="external">http://ip:80。如能够显示Tomcat的主页，则表示不需要进行任何操作了，如不能显示，则需要在Linux中开放防火墙的80端口。</a></p>
-<p>7.vim  /etc/sysconfig/iptables，写入开发80端口</p>
-<pre><code># sample configuration for iptables service
-# you can edit this manually or use system-config-firewall
-# please do not ask us to add additional ports/services to this default configuration
-*filter
-:INPUT ACCEPT [0:0]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
--A INPUT -p icmp -j ACCEPT
--A INPUT -i lo -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
--A INPUT -j REJECT --reject-with icmp-host-prohibited
--A FORWARD -j REJECT --reject-with icmp-host-prohibited
-COMMIT　　 
-</code></pre><p>8.之后重启防火墙,命令如下：<code>service iptables restart</code> 然后再次在浏览器中输入<a href="http://ip:8080，如果看到tomcat系统界面，说明安装成功，你可以进行下一步了。" target="_blank" rel="external">http://ip:8080，如果看到tomcat系统界面，说明安装成功，你可以进行下一步了。</a></p>
-<pre><code>[root@localhost sysconfig]# service iptables restart
-Redirecting to /bin/systemctl restart  iptables.service
-Job for iptables.service failed. See &apos;systemctl status iptables.service&apos; and &apos;journalctl -xn&apos; for details.
-</code></pre><p>9.停止Tomcat的命令是：/bin/shutdown.sh</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -263,271 +200,19 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/12/VMware+CentOs+Jdk/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
-
- 
-
-
-
-
-
   
-    <article id="post-Android事件传递机制探索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/27/Android事件传递机制探索/">Android事件传递机制探索</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/27/Android事件传递机制探索/" class="archive-article-date">
-  	<time datetime="2017-04-27T06:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>   总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？</p>
-<p>   在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的OnItemClickListener点击事件与Button的touch（或者click）事件冲突的问题。当然你肯定不会被难住。随手在度娘上一搜索，解决方法就出来了。但是你并没有深究为什么？都会用但是却不理解</p>
-        
-          <a class="article-more-a" href="/2017/04/27/Android事件传递机制探索/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">dispatchTouchEvent</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">onTouchEvent</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">onInterceptTouch</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/27/Android事件传递机制探索/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
- 
-
-
-
-
-
-  
-    <article id="post-disqus_config" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/17/disqus_config/">评论系统比较-网易云跟帖集成</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/17/disqus_config/" class="archive-article-date">
-  	<time datetime="2017-04-17T07:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不要在意细节不要在意文笔——毕竟像我这种懒癌晚期的程序猿！！！终于要开始记录了</p>
-<p>这是现在的丑样，看看别人的网站，评论分享玩的飞起！！我讲真不知道是怎么把那些功能添加进来的<br><img src="http://www.wanwenxiu.com/record2017/disqus_1.png" alt=""></p>
-<p>第六感告诉我，应该不难。仔细看了主体下的配置文件，里面有这么一段话：</p>
-<p><code>是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key 若使用disqus，请在博客config文件中填写disqus_shortname，并关闭多说评论
-duoshuo: false</code></p>
-<p>看描述好像很简单，接下来就拿起键盘干….</p>
-        
-          <a class="article-more-a" href="/2017/04/17/disqus_config/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">评论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">disqus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">网易云跟帖</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">多说</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/17/disqus_config/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
- 
-
-
-
-
-
-  
-    <article id="post-aboutme" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/10/aboutme/">关于me</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/10/aboutme/" class="archive-article-date">
-  	<time datetime="2017-04-10T02:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I am a slow walker,but I never walk backwards.</p>
-<p>我走得很慢，但是我从来不会后退。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=436514312&auto=1&height=66"></iframe>
-
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">简介</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/10/aboutme/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
- 
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -549,10 +234,10 @@ duoshuo: false</code></p>
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

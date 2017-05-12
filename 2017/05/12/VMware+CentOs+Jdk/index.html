@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.wanwenxiu.com">
-  <title>Wan Wenxiu</title>
+  <title>用VM+CentOS搭建java环境 | Wan Wenxiu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Wan Wenxiu">
-<meta property="og:url" content="http://www.wanwenxiu.com/index.html">
+  <meta name="description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置 一 JDK进入Linux系统，打开命令行 。 1.输入 java -version">
+<meta name="keywords" content="VMware,CentOS,JDK,tomcat,rabbit,redis,elk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用VM+CentOS搭建java环境">
+<meta property="og:url" content="http://www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
+<meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置 一 JDK进入Linux系统，打开命令行 。 1.输入 java -version">
+<meta property="og:updated_time" content="2017-05-12T09:55:05.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wan Wenxiu">
+<meta name="twitter:title" content="用VM+CentOS搭建java环境">
+<meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置 一 JDK进入Linux系统，打开命令行 。 1.输入 java -version">
   
     <link rel="alternative" href="/atom.xml" title="Wan Wenxiu" type="application/atom+xml">
   
@@ -135,16 +140,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-VMware+CentOs+Jdk" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-VMware+CentOs+Jdk" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/12/VMware+CentOs+Jdk/">用VM+CentOS搭建java环境</a>
+    <h1 class="article-title" itemprop="name">
+      用VM+CentOS搭建java环境
     </h1>
   
 
@@ -224,6 +227,37 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢好心人 ~~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://120.24.77.39:8080/image/web_alipypay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://120.24.77.39:8080/image/web_weixinpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -266,10 +300,6 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/12/VMware+CentOs+Jdk/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
@@ -277,257 +307,54 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
   </div>
 </article>
 
+  
+<nav id="article-nav">
+  
+    <a href="/2017/04/27/Android事件传递机制探索/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Android事件传递机制探索
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
 
 
+
+
+
+  
+    <div class="duoshuo"></div>
+  
 
 
  
-
-
-
-
-
   
-    <article id="post-Android事件传递机制探索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/27/Android事件传递机制探索/">Android事件传递机制探索</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/27/Android事件传递机制探索/" class="archive-article-date">
-  	<time datetime="2017-04-27T06:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>   总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？</p>
-<p>   在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的OnItemClickListener点击事件与Button的touch（或者click）事件冲突的问题。当然你肯定不会被难住。随手在度娘上一搜索，解决方法就出来了。但是你并没有深究为什么？都会用但是却不理解</p>
-        
-          <a class="article-more-a" href="/2017/04/27/Android事件传递机制探索/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">dispatchTouchEvent</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">onTouchEvent</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">onInterceptTouch</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/27/Android事件传递机制探索/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
- 
-
-
-
-
-
-  
-    <article id="post-disqus_config" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/17/disqus_config/">评论系统比较-网易云跟帖集成</a>
-    </h1>
+  <!-- �����Ƹ������۲���ͨ�ô��� -->
+<div class="netease">
+	<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+	<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+	<script>
+	var cloudTieConfig = {
+	  url: document.location.href, 
+	  sourceId: "",
+	  productKey: "4ee2020c297f497e84759f6351b74304",
+	  target: "cloud-tie-wrapper"
+	};
+	var yunManualLoad = true;
+	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+	</script>
+</div>
+<!-- �����Ƹ����������� -->
   
 
-        
-        <a href="/2017/04/17/disqus_config/" class="archive-article-date">
-  	<time datetime="2017-04-17T07:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不要在意细节不要在意文笔——毕竟像我这种懒癌晚期的程序猿！！！终于要开始记录了</p>
-<p>这是现在的丑样，看看别人的网站，评论分享玩的飞起！！我讲真不知道是怎么把那些功能添加进来的<br><img src="http://www.wanwenxiu.com/record2017/disqus_1.png" alt=""></p>
-<p>第六感告诉我，应该不难。仔细看了主体下的配置文件，里面有这么一段话：</p>
-<p><code>是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key 若使用disqus，请在博客config文件中填写disqus_shortname，并关闭多说评论
-duoshuo: false</code></p>
-<p>看描述好像很简单，接下来就拿起键盘干….</p>
-        
-          <a class="article-more-a" href="/2017/04/17/disqus_config/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">评论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">disqus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">网易云跟帖</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">多说</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/17/disqus_config/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
 
 
 
-
-
-
- 
-
-
-
-
-
-  
-    <article id="post-aboutme" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/10/aboutme/">关于me</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/10/aboutme/" class="archive-article-date">
-  	<time datetime="2017-04-10T02:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I am a slow walker,but I never walk backwards.</p>
-<p>我走得很慢，但是我从来不会后退。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=436514312&auto=1&height=66"></iframe>
-
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">简介</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/10/aboutme/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
- 
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -549,8 +376,8 @@ duoshuo: false</code></p>
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

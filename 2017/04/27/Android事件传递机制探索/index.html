@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta property="og:image" content="http://www.wanwenxiu.com/record2017/android_event.png">
-<meta property="og:updated_time" content="2017-04-29T02:49:54.332Z">
+<meta property="og:updated_time" content="2017-04-29T03:52:38.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android事件传递机制探索">
 <meta name="twitter:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
@@ -376,7 +376,112 @@ public class TouchEventTextView extends TextView{
 04-29 10:43:21.586 12119-12119/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +1
 04-29 10:43:21.586 12119-12119/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_UP
 </code></pre><p>从中也可以得到一个结论：<font color="red">onTouch事件时依附于dispatchTouchEvent事件，onclick事件是依附于onTouchEvent事件</font>。</p>
-<h2 id="二：ViewGroup控件事件传递"><a href="#二：ViewGroup控件事件传递" class="headerlink" title="二：ViewGroup控件事件传递"></a>二：ViewGroup控件事件传递</h2>
+<h2 id="二：ViewGroup控件事件传递"><a href="#二：ViewGroup控件事件传递" class="headerlink" title="二：ViewGroup控件事件传递"></a>二：ViewGroup控件事件传递</h2><p> 相对于普通view来说，除了一样有dispatchTouchEvent方法和onTouchEvent方法之外，还有一个方法是onInterceptTouchEvent方法，这个方法是控制是否拦截，并且是dispatchTouchEvent之后才执行，且是存在ViewGroup方法中。同样也是Boolean类型控制是否向下分发。详见代码：</p>
+<p>新建类TouchEventLinearLayout，继承LinearLayout布局。实现dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent三个方法。</p>
+<pre><code>/**
+ * 作者：wwx on 2017/4/29 0029 11:03
+ * 邮箱：wanwenxiu0709@foxmail.com
+ * 描述：自定义线性布局
+ */
+
+public class TouchEventLinearLayout extends LinearLayout {
+
+    public TouchEventLinearLayout(Context context) {
+        super(context);
+    }
+
+    public TouchEventLinearLayout(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public TouchEventLinearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public TouchEventLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: TouchEventLinearLayout ACTION_DOWN&quot;);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(&quot;geek&quot;, &quot;dispatchTouchEvent: TouchEventLinearLayout ACTION_UP&quot;);
+                break;
+            default:
+                break;
+
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.d(&quot;geek&quot;, &quot;onInterceptTouchEvent: TouchEventLinearLayout ACTION_DOWN&quot;);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(&quot;geek&quot;, &quot;onInterceptTouchEvent: TouchEventLinearLayout ACTION_UP&quot;);
+                break;
+            default:
+                break;
+
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: TouchEventLinearLayout ACTION_DOWN&quot;);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(&quot;geek&quot;, &quot;onTouchEvent: TouchEventLinearLayout ACTION_UP&quot;);
+                break;
+            default:
+                break;
+
+        }
+        return super.onTouchEvent(event);
+    }
+}
+</code></pre><p>创建布局文件touchevent_linearlayout_activity。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:orientation=&quot;vertical&quot; android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;wwx.toucheventdemo.TouchEventLinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;400dp&quot;&gt;
+        &lt;wwx.toucheventdemo.TouchEventTextView
+            android:id=&quot;@+id/textview&quot;
+            android:layout_width=&quot;200dp&quot;
+            android:layout_height=&quot;200dp&quot;
+            android:text=&quot;文字&quot;/&gt;
+    &lt;/wwx.toucheventdemo.TouchEventLinearLayout&gt;
+&lt;/LinearLayout&gt;
+</code></pre><p>Activity不变，运行点击文字按钮，可以看到运行效果</p>
+<pre><code>04-29 11:20:50.416 18184-18184/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_DOWN
+04-29 11:20:50.416 18184-18184/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventLinearLayout ACTION_DOWN
+04-29 11:20:50.416 18184-18184/wwx.toucheventdemo D/geek: onInterceptTouchEvent: TouchEventLinearLayout ACTION_DOWN
+04-29 11:20:50.416 18184-18184/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_DOWN
+04-29 11:20:50.416 18184-18184/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +0
+04-29 11:20:50.416 18184-18184/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_DOWN
+04-29 11:20:50.496 18184-18184/wwx.toucheventdemo D/geek: dispatchTouchEvent: Activity  ACTION_UP
+04-29 11:20:50.496 18184-18184/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventLinearLayout ACTION_UP
+04-29 11:20:50.496 18184-18184/wwx.toucheventdemo D/geek: onInterceptTouchEvent: TouchEventLinearLayout ACTION_UP
+04-29 11:20:50.496 18184-18184/wwx.toucheventdemo D/geek: dispatchTouchEvent: TouchEventTextView ACTION_UP
+04-29 11:20:50.496 18184-18184/wwx.toucheventdemo D/geek: onTouch点击事件:   TouchEventTextView +1
+04-29 11:20:50.496 18184-18184/wwx.toucheventdemo D/geek: onTouchEvent: TouchEventTextView ACTION_UP
+</code></pre><p>可以看到运行顺序，Activity-&gt;TouchEventLinearLayout-&gt;TouchEventTextView，Android中事件传递是从ViewGroup传递到View的，而不是反过来传递的。</p>
+
       
 
       
@@ -460,6 +565,11 @@ public class TouchEventTextView extends TextView{
       </div>
     </a>
   
+  
+    <a href="/2017/05/12/VMware+CentOs+Jdk/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用VM+CentOS搭建java环境</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -600,7 +710,31 @@ public class TouchEventTextView extends TextView{
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">CentOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JDK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">rabbit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">elk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,6 +751,10 @@ public class TouchEventTextView extends TextView{
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
             
             <div class="clearfix"></div>
