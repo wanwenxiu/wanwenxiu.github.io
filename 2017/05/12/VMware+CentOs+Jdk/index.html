@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
-<meta property="og:updated_time" content="2017-05-28T09:35:41.705Z">
+<meta property="og:updated_time" content="2017-05-31T06:32:14.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用VM+CentOS搭建java环境">
 <meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
@@ -194,7 +194,7 @@ Using JRE_HOME:        /usr/java/jdk1.8.0_112
 Using CLASSPATH:       /usr/java/apache8039/bin/bootstrap.jar:/usr/java/apache8039/bin/tomcat-juli.jar
 Tomcat started.
 </code></pre><p>4.启动成功，tomcat默认8080端口 ，访问<a href="http://ip:8080" target="_blank" rel="external">http://ip:8080</a> 查看是否成功,如果不成功，检查端口情况</p>
-<p>输入<code>netstat -ano|grep 8080</code> 可以看到我的8080  已经被暂用，此时你有两种方案，1修改8080端口 2修改tomcat默认端口，我采用第二种</p>
+<p>输入<code>netstat -ano|grep 8080</code> 可以看到我的8080  已经被占用，此时你有两种方案，1修改8080端口 2修改tomcat默认端口，我采用第二种</p>
 <pre><code>[root@localhost bin]# netstat -ano|grep 8080
 tcp6       0      0 127.0.0.1:8080          127.0.0.1:54527         TIME_WAIT   timewait (41.96/0/0)
 [root@localhost bin]# netstat -ano|grep 80
@@ -248,7 +248,13 @@ Total download size: 51 M
 Installed size: 138 M
 Is this ok [y/d/N]: 
 </code></pre><p>5.输入<code>y</code>, 等待59个依赖包下载。 备注（ y：在线下载安装 d：只下载不安装 N：不安装 ）,等待安装完成Complete!</p>
-<p>6<br>`</p>
+<p>6.安装rabbit，我这里是直接下载的rabbitmq-server-generic-unix-3.6.8.tar文件，输入命令<code>tar -xf rabbitmq-server-generic-unix-3.6.8.tar</code> ,可以解压生成文件夹</p>
+<p>7.开启rabbit服务 ，运行<code>./rabbitmq-server -detached</code> ,备注：<code>-detached</code>后台启动</p>
+<p>8.运行<code>./rabbitmq-plugins enable rabbitmq_management</code>，插件方式启动rabbitmq</p>
+<p>9.在浏览器运行 <code>http://localhost:15672</code>。账号密码都为guest。备注：账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用。在你登录之后可以创建其他账户以供外部访问。</p>
+<p>10.如果你没有加载出，检查你的防火墙端口是否打开，可以参考上述tomcat开启80端口的方法</p>
+<p>##四 Redis##</p>
+<p>即将更新</p>
 
       
 
@@ -469,6 +475,10 @@ Is this ok [y/d/N]:
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
@@ -494,10 +504,6 @@ Is this ok [y/d/N]:
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">elk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
              
               <li class="article-tag-list-item">
