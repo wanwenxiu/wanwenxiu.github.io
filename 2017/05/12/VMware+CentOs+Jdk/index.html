@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
-<meta property="og:updated_time" content="2017-05-12T10:04:35.919Z">
+<meta property="og:updated_time" content="2017-05-28T09:35:41.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用VM+CentOS搭建java环境">
 <meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
@@ -202,7 +202,7 @@ tcp6       0      0 127.0.0.1:55272         127.0.0.1:8005          TIME_WAIT   
 tcp6       0      0 127.0.0.1:8080          127.0.0.1:54527         TIME_WAIT   timewait (22.70/0/0)
 tcp6       0      0 127.0.0.1:8009          127.0.0.1:54780         TIME_WAIT   timewait (22.75/0/0)
 </code></pre><p>5.找到tomcat的server.xml文件 ，修改里面的端口为80 。同样可以用命令行方式，也可以用图形化直接修改文件</p>
-<p>6.再次启动tomcat服务，并访问<a href="http://ip:80。如能够显示Tomcat的主页，则表示不需要进行任何操作了，如不能显示，则需要在Linux中开放防火墙的80端口。" target="_blank" rel="external">http://ip:80。如能够显示Tomcat的主页，则表示不需要进行任何操作了，如不能显示，则需要在Linux中开放防火墙的80端口。</a></p>
+<p>6.再次启动tomcat服务，并访问 <a href="http://ip:80" target="_blank" rel="external">http://ip:80</a> ,如能够显示Tomcat的主页，则表示不需要进行任何操作了，如不能显示，则需要在Linux中开放防火墙的80端口。</p>
 <p>7.vim  /etc/sysconfig/iptables，写入开发80端口</p>
 <pre><code># sample configuration for iptables service
 # you can edit this manually or use system-config-firewall
@@ -219,12 +219,36 @@ tcp6       0      0 127.0.0.1:8009          127.0.0.1:54780         TIME_WAIT   
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 COMMIT　　 
-</code></pre><p>8.之后重启防火墙,命令如下：<code>service iptables restart</code> 然后再次在浏览器中输入<a href="http://ip:8080，如果看到tomcat系统界面，说明安装成功，你可以进行下一步了。" target="_blank" rel="external">http://ip:8080，如果看到tomcat系统界面，说明安装成功，你可以进行下一步了。</a></p>
+</code></pre><p>8.之后重启防火墙,命令如下：<code>service iptables restart</code> 然后再次在浏览器中输入 <a href="http://ip:8080，" target="_blank" rel="external">http://ip:8080，</a> 如果看到tomcat系统界面，说明安装成功，你可以进行下一步了。</p>
 <pre><code>[root@localhost sysconfig]# service iptables restart
 Redirecting to /bin/systemctl restart  iptables.service
 Job for iptables.service failed. See &apos;systemctl status iptables.service&apos; and &apos;journalctl -xn&apos; for details.
 </code></pre><p>9.停止Tomcat的命令是：/bin/shutdown.sh</p>
 <p>##三 Rabbit##</p>
+<p>因为安装rabbitmq，必须依赖erlang。所以先安装erlang依赖</p>
+<p>1.执行 <code>wget https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm</code></p>
+<p>2.执行 <code>rpm -Uvh erlang-solutions-1.0-1.noarch.rpm</code></p>
+<p>3.执行<code>rpm --import https://packages.erlang-solutions.com/rpm/erlang_solutions.asc</code></p>
+<pre><code>主要添加了
+/etc/yum.repo.d/erlang_solutions.repo
+[erlang-solutions]
+name=Centos $releasever - $basearch - Erlang Solutions
+baseurl=https://packages.erlang-solutions.com/rpm/centos/$releasever/$basearch
+gpgcheck=1
+gpgkey=https://packages.erlang-solutions.com/rpm/erlang_solutions.asc
+enabled=1
+</code></pre><p>4.执行<code>sudo yum install erlang</code>， 开始安装erlang</p>
+<pre><code>.....
+Transaction Summary
+====================================================================================
+Install  1 Package (+59 Dependent packages)
+
+Total size: 51 M
+Total download size: 51 M
+Installed size: 138 M
+Is this ok [y/d/N]: 
+</code></pre><p>5.输入<code>y</code>, 等待59个依赖包下载。 备注（ y：在线下载安装 d：只下载不安装 N：不安装 ）,等待安装完成Complete!</p>
+<p>6<br>`</p>
 
       
 
@@ -445,10 +469,6 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
@@ -477,19 +497,7 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">评论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多说</a>
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,6 +514,22 @@ Job for iptables.service failed. See &apos;systemctl status iptables.service&apo
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">评论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多说</a>
               </li>
             
             <div class="clearfix"></div>
