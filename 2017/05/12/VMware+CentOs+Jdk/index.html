@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
-<meta property="og:updated_time" content="2017-05-31T06:32:14.124Z">
+<meta property="og:updated_time" content="2017-06-01T07:49:30.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用VM+CentOS搭建java环境">
 <meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
@@ -254,7 +254,83 @@ Is this ok [y/d/N]:
 <p>9.在浏览器运行 <code>http://localhost:15672</code>。账号密码都为guest。备注：账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用。在你登录之后可以创建其他账户以供外部访问。</p>
 <p>10.如果你没有加载出，检查你的防火墙端口是否打开，可以参考上述tomcat开启80端口的方法</p>
 <p>##四 Redis##</p>
-<p>即将更新</p>
+<p>简介：&lt;摘&gt; Redis是当前比较热门的NOSQL系统之一，它是一个key-value存储系统。和Memcache类似，但很大程度补偿了Memcache的不足，它支持存储的value类型相对更多，包括string、list、set、zset和hash。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作。在此基础上，Redis支持各种不同方式的排序。<br>和Memcache一样，Redis数据都是缓存在计算机内存中，不同的是，Memcache只能将数据缓存到内存中，无法自动定期写入硬盘，这就表示，一断电或重启，内存清空，数据丢失。所以Memcache的应用场景适用于缓存无需持久化的数据。而Redis不同的是它会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，实现数据的持久化。</p>
+<p>安装步骤：</p>
+<p>1.首先上官网下载Redis压缩包，地址：<a href="http://redis.io/download" target="_blank" rel="external">http://redis.io/download</a> 下载稳定版即可。我这边下载的是redis-3.2.5.tar.gz</p>
+<p>2.将压缩包放入服务器中之后，输入<code>tar -zxvf redis-3.2.5.tar.gz</code> 可以看到当前目录已经生成一个已经解压的目录</p>
+<p>3.cd 切换至解压的目录，输入<code>make</code> , 对Redis解压后文件进行编译</p>
+<pre><code>......
+Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
+
+make[1]: Leaving directory `/usr/java/redis325/redis-3.2.5/src&apos;
+[root@localhost redis-3.2.5]# 
+</code></pre><p>4.执行<code>ll</code>,可以看到解压文件redis-3.2.5 中会有对应的src、conf等文件夹</p>
+<pre><code>[root@localhost redis-3.2.5]# ll
+total 204
+-rw-rw-r--.  1 root root 78892 Oct 26  2016 00-RELEASENOTES
+-rw-rw-r--.  1 root root    53 Oct 26  2016 BUGS
+-rw-rw-r--.  1 root root  1805 Oct 26  2016 CONTRIBUTING
+-rw-rw-r--.  1 root root  1487 Oct 26  2016 COPYING
+drwxrwxr-x.  7 root root  4096 May 31 20:55 deps
+-rw-rw-r--.  1 root root    11 Oct 26  2016 INSTALL
+-rw-rw-r--.  1 root root   151 Oct 26  2016 Makefile
+-rw-rw-r--.  1 root root  4223 Oct 26  2016 MANIFESTO
+-rw-rw-r--.  1 root root  6834 Oct 26  2016 README.md
+-rw-rw-r--.  1 root root 46695 Oct 26  2016 redis.conf
+-rwxrwxr-x.  1 root root   271 Oct 26  2016 runtest
+-rwxrwxr-x.  1 root root   280 Oct 26  2016 runtest-cluster
+-rwxrwxr-x.  1 root root   281 Oct 26  2016 runtest-sentinel
+-rw-rw-r--.  1 root root  7606 Oct 26  2016 sentinel.conf
+drwxrwxr-x.  2 root root  4096 May 31 20:56 src
+drwxrwxr-x. 10 root root  4096 Oct 26  2016 tests
+drwxrwxr-x.  7 root root  4096 Oct 26  2016 utils
+[root@localhost redis-3.2.5]# 
+</code></pre><p>5.现在可以进行安装redis,执行命令<code>make install</code>，结果如下：</p>
+<pre><code>[root@localhost src]# make install
+
+Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
+
+    INSTALL install
+    INSTALL install
+    INSTALL install
+    INSTALL install
+    INSTALL install
+[root@localhost src]# 
+</code></pre><p>6.到这一步安装就完成了，为了方便以后管理，我这里将src中几个可执行文件mkreleasehdr.sh，redis-check-aof，redis-server、redis-benchmark、redis-cli和redis.conf。拷贝到一个目录下。执行命令如下</p>
+<pre><code>[root@localhost redis-3.2.5]# mkdir bin
+[root@localhost redis-3.2.5]# mv redis.config /usr/java/redis325/redis-3.2.5/bin
+[root@localhost redis-3.2.5]# cd src
+[root@localhost redis-3.2.5]# mv mkreleasehdr.sh，redis-check-aof，redis-server、redis-benchmark、redis-cli  /usr/java/redis325/redis-3.2.5/bin
+</code></pre><p>7.前台启动redis ,执行命令<code>./redis-server redis.conf</code> 注意：这里直接执行Redis-server 启动的Redis服务，是在前台直接运行的(效果如图)，也就是说，执行完该命令后，如果Lunix关闭当前会话，则Redis服务也随即关闭。正常情况下，启动Redis服务需要从后台启动，并且指定启动配置文件。 </p>
+<pre><code>[root@localhost bin]# ./redis-server redis.conf 
+10646:M 01 Jun 00:34:36.231 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ &apos;&apos;-._                                             
+      _.-``    `.  `_.  &apos;&apos;-._           Redis 3.2.5 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ &apos;&apos;-._                                   
+ (    &apos;      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|&apos;` _.-&apos;|     Port: 6379
+ |    `-._   `._    /     _.-&apos;    |     PID: 10646
+  `-._    `-._  `-./  _.-&apos;    _.-&apos;                                   
+ |`-._`-._    `-.__.-&apos;    _.-&apos;_.-&apos;|                                  
+ |    `-._`-._        _.-&apos;_.-&apos;    |           http://redis.io        
+  `-._    `-._`-.__.-&apos;_.-&apos;    _.-&apos;                                   
+ |`-._`-._    `-.__.-&apos;    _.-&apos;_.-&apos;|                                  
+ |    `-._`-._        _.-&apos;_.-&apos;    |                                  
+  `-._    `-._`-.__.-&apos;_.-&apos;    _.-&apos;                                   
+      `-._    `-.__.-&apos;    _.-&apos;                                       
+          `-._        _.-&apos;                                           
+              `-.__.-&apos;                                               
+
+10646:M 01 Jun 00:34:36.238 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+10646:M 01 Jun 00:34:36.238 # Server started, Redis version 3.2.5
+10646:M 01 Jun 00:34:36.239 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &apos;vm.overcommit_memory = 1&apos; to /etc/sysctl.conf and then reboot or run the command &apos;sysctl vm.overcommit_memory=1&apos; for this to take effect.
+10646:M 01 Jun 00:34:36.250 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command &apos;echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled&apos; as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+10646:M 01 Jun 00:34:36.250 * The server is now ready to accept connections on port 6379
+</code></pre><p>8.如果需要进行后台启动、打开redis.conf配置文件。 将<code>daemonize no</code>改为<code>daemonize yes</code></p>
+<p>9.如果需要进行外部可访问、打开redis.conf配置文件。 将<code>bind 127.0.0.1</code>改为<code># bind 127.0.0.1</code>，默认注释</p>
+<p>10.如果需要进行有密码访问、打开redis.conf配置文件。 将<code>requirepass xxxx</code>改为<code>requirepass 123456</code> ,后者为访问密码</p>
+<p>##五 ELK##</p>
 
       
 
@@ -475,10 +551,6 @@ Is this ok [y/d/N]:
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
@@ -536,6 +608,10 @@ Is this ok [y/d/N]:
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
             
             <div class="clearfix"></div>
