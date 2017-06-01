@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
-<meta property="og:updated_time" content="2017-06-01T07:49:30.273Z">
+<meta property="og:updated_time" content="2017-06-01T07:58:33.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用VM+CentOS搭建java环境">
 <meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
@@ -253,6 +253,7 @@ Is this ok [y/d/N]:
 <p>8.运行<code>./rabbitmq-plugins enable rabbitmq_management</code>，插件方式启动rabbitmq</p>
 <p>9.在浏览器运行 <code>http://localhost:15672</code>。账号密码都为guest。备注：账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用。在你登录之后可以创建其他账户以供外部访问。</p>
 <p>10.如果你没有加载出，检查你的防火墙端口是否打开，可以参考上述tomcat开启80端口的方法</p>
+<p>备注：安装完成之后可以写个小demo测试你的rabbitmq安装是否成功，可参考我的rabbitmq测试 <a href="https://github.com/wanwenxiu/RabbitMqDemo" target="_blank" rel="external">demo</a></p>
 <p>##四 Redis##</p>
 <p>简介：&lt;摘&gt; Redis是当前比较热门的NOSQL系统之一，它是一个key-value存储系统。和Memcache类似，但很大程度补偿了Memcache的不足，它支持存储的value类型相对更多，包括string、list、set、zset和hash。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作。在此基础上，Redis支持各种不同方式的排序。<br>和Memcache一样，Redis数据都是缓存在计算机内存中，不同的是，Memcache只能将数据缓存到内存中，无法自动定期写入硬盘，这就表示，一断电或重启，内存清空，数据丢失。所以Memcache的应用场景适用于缓存无需持久化的数据。而Redis不同的是它会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，实现数据的持久化。</p>
 <p>安装步骤：</p>
@@ -327,9 +328,9 @@ Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
 10646:M 01 Jun 00:34:36.239 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &apos;vm.overcommit_memory = 1&apos; to /etc/sysctl.conf and then reboot or run the command &apos;sysctl vm.overcommit_memory=1&apos; for this to take effect.
 10646:M 01 Jun 00:34:36.250 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command &apos;echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled&apos; as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
 10646:M 01 Jun 00:34:36.250 * The server is now ready to accept connections on port 6379
-</code></pre><p>8.如果需要进行后台启动、打开redis.conf配置文件。 将<code>daemonize no</code>改为<code>daemonize yes</code></p>
-<p>9.如果需要进行外部可访问、打开redis.conf配置文件。 将<code>bind 127.0.0.1</code>改为<code># bind 127.0.0.1</code>，默认注释</p>
-<p>10.如果需要进行有密码访问、打开redis.conf配置文件。 将<code>requirepass xxxx</code>改为<code>requirepass 123456</code> ,后者为访问密码</p>
+</code></pre><p>8.Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程,即后台启动。打开redis.conf配置文件。 将<code>daemonize no</code>改为<code>daemonize yes</code></p>
+<p>9.Redis默认bind 127.0.0.1，即只可本机访问，如果需要进行外部可访问、打开redis.conf配置文件。 将<code>bind 127.0.0.1</code>改为<code># bind 127.0.0.1</code>，</p>
+<p>10.设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH <password>命令提供密码，默认关闭，如果需要进行有密码访问、打开redis.conf配置文件。 将<code>requirepass foobared</code>改为<code>requirepass 123456</code> ,后者为访问密码</password></p>
 <p>##五 ELK##</p>
 
       
@@ -579,6 +580,10 @@ Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
@@ -608,10 +613,6 @@ Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
             
             <div class="clearfix"></div>
