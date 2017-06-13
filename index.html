@@ -159,168 +159,9 @@
       
         <p>马上要进入二期开发，需要把后台商城模块及APP中商城模块流程操作记录下来</p>
 <p>结尾附 详细订单操作流程图</p>
-<h1 id="商城进销存管理"><a href="#商城进销存管理" class="headerlink" title="商城进销存管理"></a>商城进销存管理</h1><h2 id="一-库存管理"><a href="#一-库存管理" class="headerlink" title="一: 库存管理"></a>一: 库存管理</h2><p>1：库存信息搜索</p>
-<p>2：批量入库：</p>
-<p>   商品编号+商品名称+商品规格+商品单价+入库数量+生产日期+有效期（天）+商品说明、所属项目+入库类型+采购人+入库备注   =  一条/多条 库存信息 +一条/多条入库记录 + 一条流水记录</p>
-<p>3：批量出库：</p>
-<p>所属项目+生产日期+有效期（天）+商品编号+（自动补全：商品名称+商品规格+商品单价+当前库存）+出库数量、出库用途+调度仓库+领取人+仓管员+出库备注   =  一条/多条库存信息 +一条/多条入库记录 + 一条流水记录</p>
-<p>4：库存信息导出</p>
-<p>5：查看、修改库存信息</p>
-<p>6：单条库存出库:</p>
-<p>   选中一条库存信息，填写 调度仓库+出库用途+出库数量+领取人+仓管员+出库备注  = 一条/多条库存信息 +一条/多条入库记录 + 一条流水记录</p>
-<p>7：  报损</p>
-<p>  选中一条库存信息，填写 报损数量+报损原因+操作员+备注 =  修改库存信息 + 一条出库信息 + 一条流水信息 +一条报损记录</p>
-<p>8：设置上架数量</p>
-<p>选中一条库存信息，商城管理不存在该商品信息 ，提示 “商城中未找到xx小区xx商品编号的商品信息,请先上传该商品”。存在该商品信息，输入 商城上架数量  = 修改商城管理中商品库存</p>
-<p>9:删除库存信息</p>
-<p> 选中一条库存信息，点击删除，删除该库存信息</p>
-<h2 id="二-入库记录"><a href="#二-入库记录" class="headerlink" title="二:入库记录"></a>二:入库记录</h2><p>1: 搜索入库记录</p>
-<p>2：导出入库记录</p>
-<h2 id="三-出库记录"><a href="#三-出库记录" class="headerlink" title="三:出库记录"></a>三:出库记录</h2><p>1: 搜索出库记录</p>
-<p>2：导出出库记录</p>
-<h2 id="四-流水记录"><a href="#四-流水记录" class="headerlink" title="四:流水记录"></a>四:流水记录</h2><p>1: 搜索流水记录</p>
-<p>2：导出流水记录</p>
-<h2 id="五-报损记录"><a href="#五-报损记录" class="headerlink" title="五:报损记录"></a>五:报损记录</h2><p>1: 搜索报损记录</p>
-<h2 id="六-过期提醒"><a href="#六-过期提醒" class="headerlink" title="六:过期提醒"></a>六:过期提醒</h2><p>1: 搜索过期提醒</p>
-<p>   选择小区，列出所有即将在一个月之内过期的库存信息和已经过期的库存信息</p>
-<h1 id="商城管理"><a href="#商城管理" class="headerlink" title="商城管理"></a>商城管理</h1><h2 id="一-商品上传"><a href="#一-商品上传" class="headerlink" title="一: 商品上传"></a>一: 商品上传</h2><p> 1：输入：所属项目+生产日期+有效期（天）+商品编号<br>查询是否存在该库存信息。不存在该库存信息，提示“该商品在库存中不存在”。<br>存在该库存信息（自动补全  过期日期+商品名称+商品规格+商品进货价），输入<br>商品售卖单价+配送类型（正常配送、大件配送）+是否高销量+是否高人气+一级分类+二级分类+是否活动展示+是否上架+是否缺货+是否夜间配送+商品图片（最多5张）+商品描述（富文本） =  一条商品信息</p>
-<h2 id="二-商品管理"><a href="#二-商品管理" class="headerlink" title="二: 商品管理"></a>二: 商品管理</h2><p>1: 商品信息搜索</p>
-<p>2.商品信息导出</p>
-<p>3.设为夜间商品</p>
-<p>选择一条或多条商品信息，点击设为夜间商品 = 修改商品信息 + 在夜间商品页面可查看</p>
-<p>4:查看、修改</p>
-<p>5：删除商品信息</p>
-<p>选择一条商品信息，点击删除。删除该商品信息</p>
-<p>6：查看评价</p>
-<p>选择一条商品信息，点击查看评价，跳转至商品评价界面，可查看评价信息</p>
-<h2 id="三-活动商品"><a href="#三-活动商品" class="headerlink" title="三: 活动商品"></a>三: 活动商品</h2><ol>
-<li>搜索活动商品</li>
-<li></li>
-<li>查看修改</li>
-</ol>
-<h2 id="四-缺货商品"><a href="#四-缺货商品" class="headerlink" title="四: 缺货商品"></a>四: 缺货商品</h2><ol>
-<li>搜索缺货商品</li>
-</ol>
-<h2 id="五-夜间商品"><a href="#五-夜间商品" class="headerlink" title="五: 夜间商品"></a>五: 夜间商品</h2><p>1搜索夜间商品</p>
-<p>2查看修改</p>
-<h2 id="六-分类管理"><a href="#六-分类管理" class="headerlink" title="六:分类管理"></a>六:分类管理</h2><ol>
-<li><p>搜索分类信息</p>
-</li>
-<li><p>添加一级分类</p>
-</li>
-</ol>
-<p>所属项目+一级分类+启用状态 = 一条分类信息</p>
-<ol>
-<li>添加二级分类  </li>
-</ol>
-<p>所属项目 + 一级分类 +二级分类 +启用状态 +二级分类图片 = 一条二级分类信息</p>
-<ol>
-<li><p>查看修改</p>
-</li>
-<li><p>删除</p>
-</li>
-</ol>
-<h2 id="七-商城配置"><a href="#七-商城配置" class="headerlink" title="七:商城配置"></a>七:商城配置</h2><ol>
-<li>增加欣社区APP内部图片</li>
-<li><p>选择公司名称 + 配置区域（APP主界面以及快捷菜单栏广告轮播图、APP商城主界面中部区域广告轮播图+APP商城主界面一级分类图标）+配置名称+配置外部链接 +配置图片 = 一条商城配置信息</p>
-</li>
-<li><p>增加/修改欣社区商品夜间配送时间<br>选择公司名称+配置类型（夜间配送开始时间、夜间配送结束时间）+时间类型（当日、次日） +配置时间  = 新增或修改该公司夜间配送时间（不存在新增，存在修改）</p>
-</li>
-<li><p>查看、修改配置信息</p>
-</li>
-</ol>
-<h1 id="订单管理"><a href="#订单管理" class="headerlink" title="订单管理"></a>订单管理</h1><h2 id="一-订单管理"><a href="#一-订单管理" class="headerlink" title="一: 订单管理"></a>一: 订单管理</h2><ol>
-<li><p>订单信息搜索</p>
-</li>
-<li><p>订单信息导出</p>
-</li>
-<li><p>一键收货</p>
-</li>
-</ol>
-<p>把所有超过3天未收货的订单一键处理为已完成订单 。修改订单状态 、修改配送记录状态、修改配送人配送信息、修改销售记录状态信息</p>
-<ol>
-<li>切换接单模式</li>
-<li><p>点击可切换指派模式和抢单模式。指派模式时：欣助手不能进行抢单</p>
-</li>
-<li><p>查看处理</p>
-</li>
-</ol>
-<p>订单状态为待发货时，点击进入订单详情界面。点击处理按钮。选择受理人（自动补全为登录人）+配送人 （接单状态为开启）=修改订单信息+产生配送记录。分配成功之后可提示是否打印订单信息。</p>
-<ol>
-<li>打印订单</li>
-</ol>
-<p>选择该小区一台打印机，点击确认。小区订单打印机开始打印订单信息</p>
-<ol>
-<li>订单处理 文档结尾详细说明</li>
-</ol>
-<h2 id="二-销售商品管理"><a href="#二-销售商品管理" class="headerlink" title="二: 销售商品管理"></a>二: 销售商品管理</h2><ol>
-<li><p>搜索销售商品信息</p>
-</li>
-<li><p>导出销售商品信息</p>
-</li>
-<li><p>查看修改销售商品信息</p>
-</li>
-<li><p>删除销售商品信息</p>
-</li>
-</ol>
-<h2 id="三-配送人管理"><a href="#三-配送人管理" class="headerlink" title="三: 配送人管理"></a>三: 配送人管理</h2><ol>
-<li><p>搜索配送人信息</p>
-</li>
-<li><p>查看修改配送人信息</p>
-</li>
-<li><p>查看配送记录</p>
-</li>
-</ol>
-<p>选择一条配送人信息，跳转至配送记录列表。可查看该配送人配送详细记录</p>
-<ol>
-<li>指派夜间负责人</li>
-</ol>
-<p>选中一个配送人，点击指派夜间负责人。当时间是白天17点之前，指派夜间负责人，提示：现在不是夜间，不能指派夜间负责人。当时间是白天17:00-17:30时，指派夜间负责人，提示：还没到交班时间，请耐心等待一下。不选择一行信息记录，指派夜间负责人，提示：请单机选中一行，作为负责人。当帐号状态是禁用状态，指派夜间负责人，提示：该帐号状态为禁用，不能作为夜间值班人</p>
-<ol>
-<li>接管值班</li>
-</ol>
-<p>？</p>
-<ol>
-<li>指派临时负责人</li>
-</ol>
-<p>当管理员列表中没有临时管理员时，指派临时值班人，提示：暂没有查询到临时管理员。否则：弹出选择临时负责人页面，选择一个临时员，楼盘和用户名自动获取填入，点击确认，激活该负责人。临时管理员可以登录系统进行操作</p>
-<ol>
-<li><p>导出值班负责人记录表</p>
-</li>
-<li><p>导出配送人员提成表</p>
-</li>
-</ol>
-<h1 id="打印机设置"><a href="#打印机设置" class="headerlink" title="打印机设置"></a>打印机设置</h1><h2 id="一-打印机管理"><a href="#一-打印机管理" class="headerlink" title="一: 打印机管理"></a>一: 打印机管理</h2><ol>
-<li><p>查看打印机</p>
-</li>
-<li><p>添加打印机</p>
-</li>
-</ol>
-<p>选择所属项目+打印机编号+打印机账号+打印机IP +HOSTNAME = 一条打印机信息</p>
-<ol>
-<li><p>查看、修改打印机信息</p>
-</li>
-<li><p>删除打印机信息</p>
-</li>
-</ol>
-<h1 id="投诉建议管理"><a href="#投诉建议管理" class="headerlink" title="投诉建议管理"></a>投诉建议管理</h1><h2 id="一-商品投诉建议列表"><a href="#一-商品投诉建议列表" class="headerlink" title="一: 商品投诉建议列表"></a>一: 商品投诉建议列表</h2><ol>
-<li><p>搜素信息</p>
-</li>
-<li><p>查看处理</p>
-</li>
-</ol>
-<p>选择一条信息，点击处理。已经处理完成提示“已处理过了”。否则选择处理状态和反馈意见（默认：感谢您的宝贵意见，我们已经及时处理完成，给您带来不便我们深表歉意!） 进行处理</p>
-<ol>
-<li>批量删除</li>
-</ol>
-<p>选择一条或多条投诉建议信息，进行批量删除</p>
-<h2 id="二-统计投诉建议"><a href="#二-统计投诉建议" class="headerlink" title="二: 统计投诉建议"></a>二: 统计投诉建议</h2><p>   选择楼盘进行搜索，展示投诉统和建议数量统计</p>
-<h1 id="电子券管理"><a href="#电子券管理" class="headerlink" title="电子券管理"></a>电子券管理</h1><h2 id="一-赠送电子券"><a href="#一-赠送电子券" class="headerlink" title="一: 赠送电子券"></a>一: 赠送电子券</h2><p>   选择项目 + 受赠人姓名 +受赠人电话 点击验证用户 ，不存在该用户提示，存在点击赠送电子券。输入电子券面额和赠送理由 进行赠送</p>
-<h2 id="二：电子券流水列表"><a href="#二：电子券流水列表" class="headerlink" title="二：电子券流水列表"></a>二：电子券流水列表</h2><p>   搜素电子券流水</p>
-<h2 id="三：批量赠送电子券"><a href="#三：批量赠送电子券" class="headerlink" title="三：批量赠送电子券"></a>三：批量赠送电子券</h2><p>   选择项目，查询出该项目下所有业主，选择一个或多个进行批量赠送</p>
-<p>订单流程图<br>后台操作                               订单状态                              欣社区APP操作   </p>
-<p><img src="http://images.wanwenxiu.com/record2017/order.png" alt=""></p>
-
+        
+          <a class="article-more-a" href="/2017/06/13/商城模块后台及APP流程/#more">more >></a>
+        
       
 
       
@@ -785,46 +626,6 @@ duoshuo: false</code></p>
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">评论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多说</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">商城</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
@@ -850,6 +651,46 @@ duoshuo: false</code></p>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">elk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">评论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">disqus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">网易云跟帖</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">商城</a>
               </li>
             
             <div class="clearfix"></div>
