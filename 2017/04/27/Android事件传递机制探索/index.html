@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://www.wanwenxiu.com">
+  <link rel="dns-prefetch" href="//www.wanwenxiu.com">
   <title>Android事件传递机制探索 | Wan Wenxiu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta name="keywords" content="Android,dispatchTouchEvent,onTouchEvent,onInterceptTouch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android事件传递机制探索">
-<meta property="og:url" content="http://www.wanwenxiu.com/2017/04/27/Android事件传递机制探索/index.html">
+<meta property="og:url" content="//www.wanwenxiu.com/2017/04/27/Android事件传递机制探索/index.html">
 <meta property="og:site_name" content="Wan Wenxiu">
 <meta property="og:description" content="总是不知道怎么写一篇文章的开头，总是删了又敲上，敲上又删了。就如学生时代写作文一样。如此反复，恍然大悟，这不是在写作文也不是在写给别人看，只是做简单的记录而已。犹豫什么呢？    在Android开发中，使用过很多控件（TextView Button View ListView Linearlayout …），设置过许多事件(单击、双击、长按、拖拽、滑动 …)。也肯定遇到过Listview的">
 <meta property="og:image" content="http://images.wanwenxiu.com/record2017/android_event.png">
@@ -694,7 +694,19 @@ public class TouchEventLinearLayout extends LinearLayout {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">简介</a>
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,19 +738,7 @@ public class TouchEventLinearLayout extends LinearLayout {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
+                <a href="javascript:void(0)" class="js-tag color3">简介</a>
               </li>
              
               <li class="article-tag-list-item">
