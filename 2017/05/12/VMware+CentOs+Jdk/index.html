@@ -15,7 +15,7 @@
 <meta property="og:url" content="//www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="wanwenxiu">
 <meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
-<meta property="og:updated_time" content="2017-06-02T03:24:37.029Z">
+<meta property="og:updated_time" content="2017-09-06T01:45:37.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用VM+CentOS搭建java环境">
 <meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
@@ -329,7 +329,9 @@ Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
 </code></pre><p>8.Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程,即后台启动。打开redis.conf配置文件。 将<code>daemonize no</code>改为<code>daemonize yes</code></p>
 <p>9.Redis默认bind 127.0.0.1，即只可本机访问，如果需要进行外部可访问、打开redis.conf配置文件。 将<code>bind 127.0.0.1</code>改为<code># bind 127.0.0.1</code>，</p>
 <p>10.设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH <password>命令提供密码，默认关闭，如果需要进行有密码访问、打开redis.conf配置文件。 将<code>requirepass foobared</code>改为<code>requirepass 123456</code> ,后者为访问密码</password></p>
-<h2 id="五-ELK"><a href="#五-ELK" class="headerlink" title="五 ELK"></a>五 ELK</h2>
+<h2 id="命令备份"><a href="#命令备份" class="headerlink" title="命令备份"></a>命令备份</h2><p>df -h查看磁盘容量<br>src/redis-server redis.conf</p>
+<p>查看防火墙默认方式<br>systemctl stop firewalld.service #停止firewall<br>systemctl disable firewalld.service #禁止firewall开机启动<br>firewall-cmd –state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</p>
+
       
 
       
@@ -554,22 +556,6 @@ Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
@@ -615,6 +601,22 @@ Hint: It&apos;s a good idea to run &apos;make test&apos; ;)
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多说</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">dispatchTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">onInterceptTouch</a>
               </li>
              
               <li class="article-tag-list-item">
