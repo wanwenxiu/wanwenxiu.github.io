@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="//www.wanwenxiu.com">
   <title>用VM+CentOS搭建java环境 | wanwenxiu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
+  <meta name="description" content="项目需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
 <meta name="keywords" content="VMware,CentOS,JDK,tomcat,rabbit,redis,elk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用VM+CentOS搭建java环境">
 <meta property="og:url" content="//www.wanwenxiu.com/2017/05/12/VMware+CentOs+Jdk/index.html">
 <meta property="og:site_name" content="wanwenxiu">
-<meta property="og:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
+<meta property="og:description" content="项目需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
 <meta property="og:updated_time" content="2017-09-06T01:45:37.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用VM+CentOS搭建java环境">
-<meta name="twitter:description" content="公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
+<meta name="twitter:description" content="项目需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。 在开始之前，先把我需要用到的软件列出来  VMware CentOS JDK Tomcat  Rabbit  Redis  ELK，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置">
   
     <link rel="alternative" href="/atom.xml" title="wanwenxiu" type="application/atom+xml">
   
@@ -160,7 +160,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>公司需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。</p>
+        <p>项目需要搭建集群，以身试毒，我决定先在本地搭建一个Linux环境。先写下搭建的流程，以防万一。</p>
 <p>在开始之前，先把我需要用到的软件列出来  <a href="http://sw.bos.baidu.com/sw-search-sp/software/9cc86e00cf794/VMware-workstation-full_12.5.5.17738.exe" target="_blank" rel="external">VMware</a> <a href="https://www.centos.org/download/" target="_blank" rel="external">CentOS</a> <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">JDK</a> <a href="http://tomcat.apache.org/download-80.cgi" target="_blank" rel="external">Tomcat</a>  <a href="http://wiki.rabbitvcs.org/wiki/download" target="_blank" rel="external">Rabbit</a>  <a href="https://redis.io/download" target="_blank" rel="external">Redis</a>  <a href="https://www.elastic.co/cn/products" target="_blank" rel="external">ELK</a><br>，前面两个就不多描述了，毕竟下载个安装包安装应该不是什么难事。主要记录后续几种的安装与配置</p>
 <a id="more"></a>
 <h2 id="一-JDK"><a href="#一-JDK" class="headerlink" title="一 JDK"></a>一 JDK</h2><p>进入Linux系统，打开命令行 。</p>
